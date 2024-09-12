@@ -1,0 +1,64 @@
+pipeline {
+    
+    agent any
+    
+    environment {
+        AWS_CREDENTIAL = credentials('aws-credential-dllo')
+        AWS_REGION = "us-east-1"
+    }
+    
+    tools {
+       terraform 'Terraform'
+    }
+
+    stages {
+      stage('Continuous Integration') {
+        stages{
+          stage('Checkout repository GIT') {
+            steps{
+              git credentialsId: 'CredencialesGitHub',
+              url: 'https://github.com/DeveloperSenior/gcae-app.git',
+              branch: 'develop'
+            }
+          }
+          stage('Infrastructure Terraform Init/Plan') {
+            steps{
+              dir('iac/dllo') {
+                  bat 'terraform init'
+                  bat 'terraform plan -out tfplan'
+                  bat 'terraform show -no-color tfplan > tfplan.txt'
+            }
+            }
+          }
+        }
+      }
+      stage('Approval') {
+        steps {
+            dir('iac/dllo') {
+                script {
+                    def plan = readFile 'tfplan.txt'
+                    input message: "Do you want to apply the plan?",
+                        parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                }
+                 
+            }
+          
+        }
+      }
+      stage('Continuous Delivery') {
+         
+        steps('Deploy') {
+             dir('iac/dllo') {
+                bat 'terraform apply -input=false tfplan'     
+             }
+        }
+      }
+    
+    }
+    
+    post { 
+        always { 
+            cleanWs()
+        }
+    }
+  }
