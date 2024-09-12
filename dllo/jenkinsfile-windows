@@ -17,13 +17,13 @@ pipeline {
           stage('Checkout repository GIT') {
             steps{
               git credentialsId: 'CredencialesGitHub',
-              url: 'https://github.com/DeveloperSenior/gcae-app.git',
+              url: 'https://github.com/DeveloperSenior/gcae-app-iac.git',
               branch: 'develop'
             }
           }
           stage('Infrastructure Terraform Init/Plan') {
             steps{
-              dir('iac/dllo') {
+              dir('dllo') {
                   bat 'terraform init'
                   bat 'terraform plan -out tfplan'
                   bat 'terraform show -no-color tfplan > tfplan.txt'
@@ -34,7 +34,7 @@ pipeline {
       }
       stage('Approval') {
         steps {
-            dir('iac/dllo') {
+            dir('dllo') {
                 script {
                     def plan = readFile 'tfplan.txt'
                     input message: "Do you want to apply the plan?",
@@ -48,7 +48,7 @@ pipeline {
       stage('Continuous Delivery') {
          
         steps('Deploy') {
-             dir('iac/dllo') {
+             dir('dllo') {
                 bat 'terraform apply -input=false tfplan'     
              }
         }

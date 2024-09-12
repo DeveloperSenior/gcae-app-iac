@@ -23,7 +23,7 @@ pipeline {
           }
           stage('Infrastructure Terraform Init/Plan') {
             steps{
-              dir('iac/dllo') {
+              dir('dllo') {
                   sh 'terraform init'
                   sh 'terraform plan -out tfplan'
                   sh 'terraform show -no-color tfplan > tfplan.txt'
@@ -34,7 +34,7 @@ pipeline {
       }
       stage('Approval') {
         steps {
-            dir('iac/dllo') {
+            dir('dllo') {
                 script {
                     def plan = readFile 'tfplan.txt'
                     input message: "Do you want to apply the plan?",
@@ -48,7 +48,7 @@ pipeline {
       stage('Continuous Delivery') {
          
         steps('Deploy') {
-             dir('iac/dllo') {
+             dir('dllo') {
                 sh 'terraform apply -input=false tfplan'     
              }
         }

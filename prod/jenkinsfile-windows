@@ -17,7 +17,7 @@ pipeline {
           stage('Checkout repository GIT') {
             steps{
               git credentialsId: 'CredencialesGitHub',
-              url: 'https://github.com/DeveloperSenior/gcae-app.git',
+              url: 'https://github.com/DeveloperSenior/gcae-app-iac.git',
               branch: 'main'
             }
           }
