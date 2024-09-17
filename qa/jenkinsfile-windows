@@ -3,7 +3,7 @@ pipeline {
     agent any
     
     environment {
-        AWS_CREDENTIAL = credentials('aws-credential-test')
+        AWS_CREDENTIAL = credentials('aws-credential-prod')
         AWS_REGION = "us-east-1"
     }
     
@@ -23,10 +23,10 @@ pipeline {
           }
           stage('Infrastructure Terraform Init/Plan') {
             steps{
-              dir('test') {
-                  sh 'terraform init'
-                  sh 'terraform plan -out tfplan'
-                  sh 'terraform show -no-color tfplan > tfplan.txt'
+              dir('qa') {
+                  bat 'terraform init'
+                  bat 'terraform plan -out tfplan'
+                  bat 'terraform show -no-color tfplan > tfplan.txt'
             }
             }
           }
@@ -34,7 +34,7 @@ pipeline {
       }
       stage('Approval') {
         steps {
-            dir('test') {
+            dir('qa') {
                 script {
                     def plan = readFile 'tfplan.txt'
                     input message: "Do you want to apply the plan?",
@@ -48,8 +48,8 @@ pipeline {
       stage('Continuous Delivery') {
          
         steps('Deploy') {
-             dir('test') {
-                sh 'terraform apply -input=false tfplan'     
+             dir('qa') {
+                bat 'terraform apply -input=false tfplan'     
              }
         }
       }

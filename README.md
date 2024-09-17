@@ -5,8 +5,16 @@ repository to manage IaC for the GCAE project
 - [Andres Felipe Escobar Lopez](https://github.com/DeveloperSenior)
 
 # Technology in which it was developed
-- AWS
+Before starting you must install Git, Terraform, Docker on your applicable operating system go to the official site [Install Terraform](https://developer.hashicorp.com/terraform/install?product_intent=terraform),
+[Install Git](https://git-scm.com/downloads),
+[Install Docker](https://docs.docker.com/engine/install/),
+[Install Jenkins](https://www.jenkins.io/doc/book/installing/)
+
 - Terraform
+- AWS
+- GIT
+- Jenkins
+- (Optional) Snyk: gives you the visibility, context, and control you need to work alongside developers on reducing application risk. [Install snyk](https://snyk.io/)
 
 # Project's name
 `GCAE FRAMEWORK for generating the BACK-END of an application from JSON objects (JSON-NODEJS Generator) under SOLID principles` software that automates the process of generating base code with standard architectures within the framework of SOLID principles focused on the Back-end.
@@ -32,7 +40,7 @@ gcae-app-iac
         variables.tf
         jenkinsfile
         jenkisfile-windows
-    L test
+    L qa
         data.tf
         locals.tf
         main.tf
@@ -45,7 +53,7 @@ gcae-app-iac
         L ecr
         L ecs
    .gitignore
-   READEME.md
+   README.md
 ```
 # How to init terraform in the environment
 
@@ -92,4 +100,18 @@ terraform show -no-color tfplan > tfplan.txt
 ```bash
 # apply plan 
 terraform apply -input=false tfplan
+```
+
+7. **(Optional) Run scan code security with snyk:**
+
+```bash
+# install snyk with npm
+npm install -g snyk
+
+# login snyk
+snyk auth
+
+# scan IaC with report
+snyk iac test --report
+
 ```
