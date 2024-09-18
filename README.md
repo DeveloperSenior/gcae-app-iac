@@ -10,6 +10,7 @@ Before starting you must install Git, Terraform, Docker on your applicable opera
 [Install Docker](https://docs.docker.com/engine/install/),
 [Install Jenkins](https://www.jenkins.io/doc/book/installing/)
 
+- VSCode [Install VSCode](https://code.visualstudio.com/download)
 - Terraform
 - AWS
 - GIT
