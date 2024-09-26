@@ -60,26 +60,16 @@ gcae-app-iac
 ## Set up development environment
 
 ### Use VSCode IDE - How install [here](#technology-in-which-it-was-developed)
-
-![VSCode gcae](/images/vscode.png)
-
+<br><br>
+<img src="images/vscode.png" alt="drawing" width="400"/>
+<br><br>
 ### Install recommended VSCode plugins
 
-* amazonwebservices.aws-toolkit-vscode
-
-![AWS Plugin](/images/aws-plugin.png)
-
-* ms-azuretools.vscode-docker 
-
-![Docker Plugin](/images/docker-plugin.png)
-
-* hashicorp.terraform 
-
-![Terrafor Plugin](/images/terraform-plugin.png)
-
-* SonarSource.sonarlint-vscode
-
-![SonarLint Plugin](/images/sonarlint-plugin.png)
+|                                                            |                                                          |
+| :--------------------------------------------------------: | :------------------------------------------------------: |
+| ![AWS Plugin](/images/aws-plugin.png)        				 |   ![Docker Plugin](/images/docker-plugin.png)            |
+| ![Terraform Plugin](/images/terraform-plugin.png) 		 |   ![SonarLint Plugin](/images/sonarlint-plugin.png)      |
+|                                                            |                                                          |
 
 
 # How to init terraform in the environment
@@ -87,7 +77,9 @@ gcae-app-iac
 ## Bucket Terraform State in AWS S3
 **NOTE:** Before starting, the terraform state is stored in an S3 bucket on AWS called `gcae-state-backend-terraform` and this must exist in the account associated with the AWS CLI credentials
 
-![GACE IaC Bucket AWS](/images/gcae-iac-bucket.png)
+<br>
+<img src="images/gcae-iac-bucket.png" alt="drawing" width="400"/>
+<br><br>
 
 1. **Clone the Repository:**
 ```bash
