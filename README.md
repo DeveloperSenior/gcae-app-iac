@@ -66,12 +66,19 @@ gcae-app-iac
 ### Install recommended VSCode plugins
 
 * amazonwebservices.aws-toolkit-vscode
+
 ![AWS Plugin](/images/aws-plugin.png)
+
 * ms-azuretools.vscode-docker 
+
 ![Docker Plugin](/images/docker-plugin.png)
+
 * hashicorp.terraform 
+
 ![Terrafor Plugin](/images/terraform-plugin.png)
+
 * SonarSource.sonarlint-vscode
+
 ![SonarLint Plugin](/images/sonarlint-plugin.png)
 
 
