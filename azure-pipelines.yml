@@ -10,30 +10,8 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- script: echo hello world
 
-- task: TerraformInstaller@2
-  inputs:
-    terraformVersion: 'latest'
-
-- task: TerraformCLI@2
-  inputs:
-    command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/dllo'
-    allowTelemetryCollection: true
-  displayName: 'Terraform INIT'
-
-- task: TerraformCLI@2
-  inputs:
-    command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/dllo'
-    commandOptions: '-out tfplan'
-    allowTelemetryCollection: true
-  displayName: 'Terraform PLAN'
-
-- task: TerraformCLI@2
-  inputs:
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/dllo'
-    commandOptions: '-input=false tfplan'
-    allowTelemetryCollection: true
-  displayName: 'Terraform APPLY'
+- script: |
+     echo Add other task
+     echo See https://aka.m/yaml
