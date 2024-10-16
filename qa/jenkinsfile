@@ -1,0 +1,64 @@
+pipeline {
+    
+    agent any
+    
+    environment {
+        AWS_CREDENTIAL = credentials('aws-credential-test')
+        AWS_REGION = "us-east-1"
+    }
+    
+    tools {
+       terraform 'Terraform'
+    }
+
+    stages {
+      stage('Continuous Integration') {
+        stages{
+          stage('Checkout repository GIT') {
+            steps{
+              git credentialsId: 'CredencialesGitHub',
+              url: 'https://github.com/DeveloperSenior/gcae-app-iac.git',
+              branch: 'release/*'
+            }
+          }
+          stage('Infrastructure Terraform Init/Plan') {
+            steps{
+              dir('qa') {
+                  sh 'terraform init'
+                  sh 'terraform plan -out tfplan'
+                  sh 'terraform show -no-color tfplan > tfplan.txt'
+            }
+            }
+          }
+        }
+      }
+      stage('Approval') {
+        steps {
+            dir('qa') {
+                script {
+                    def plan = readFile 'tfplan.txt'
+                    input message: "Do you want to apply the plan?",
+                        parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                }
+                 
+            }
+          
+        }
+      }
+      stage('Continuous Delivery') {
+         
+        steps('Deploy') {
+             dir('qa') {
+                sh 'terraform apply -input=false tfplan'     
+             }
+        }
+      }
+    
+    }
+    
+    post { 
+        always { 
+            cleanWs()
+        }
+    }
+  }
