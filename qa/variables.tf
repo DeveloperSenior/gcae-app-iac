@@ -1,10 +1,10 @@
 variable "additional_tags" {
   default = {
-    "Ambiente"            = "Test"
+    "Ambiente"            = "QA"
     "AnalistaResponsable" = "Andres Felipe Escobar Lopez"
     "Compania"            = "Tecnologico de Antioquia"
     "LiderProyecto"       = "Andres Felipe Escobar Lopez"
-    "NombreProyecto"      = "GCAE-TEST"
+    "NombreProyecto"      = "GCAE-QA"
     "IaC"                 = "Terraform"
   }
   description = "Additional resource tags"
@@ -12,7 +12,7 @@ variable "additional_tags" {
 }
 
 variable "stage" {
-  default     = "test"
+  default     = "qa"
   description = "stage app"
   type        = string
 }
