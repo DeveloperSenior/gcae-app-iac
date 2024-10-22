@@ -6,6 +6,11 @@
 
 locals {
 
+  terraform_bucket_name = "gcae-state-backend-terraform"
+
+  gcae_bucket_name_templates = "${var.stage}-gcae-templates"
+
+
   cloudwatch_logs_group         = "/ecs/gcae-app-${var.stage}"
   cloudwatch_logs_stream_prefix = "ecs"
 
