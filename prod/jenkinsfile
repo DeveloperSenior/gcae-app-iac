@@ -5,6 +5,7 @@ pipeline {
     environment {
         AWS_CREDENTIAL = credentials('aws-credential-prod')
         AWS_REGION = "us-east-1"
+        DEPLOY_BRANCH = 'main'
     }
     
     tools {
@@ -18,7 +19,7 @@ pipeline {
             steps{
               git credentialsId: 'CredencialesGitHub',
               url: 'https://github.com/DeveloperSenior/gcae-app-iac.git',
-              branch: 'main'
+              branch: env.DEPLOY_BRANCH
             }
           }
           stage('Infrastructure Terraform Init/Plan') {
