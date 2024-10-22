@@ -21,6 +21,16 @@ terraform {
 
 }
 
+module "tf-state" {
+  source                = "../shared/modules/tf-state"
+  terraform_bucket_name = local.terraform_bucket_name
+}
+
+module "gcae-bucket-template" {
+  source      = "../shared/modules/s3"
+  bucket_name = local.gcae_bucket_name_templates
+}
+
 module "CloudWatch-Logs-groups" {
   source                = "../shared/modules/cloudwatch"
   cloudwatch_logs_group = local.cloudwatch_logs_group

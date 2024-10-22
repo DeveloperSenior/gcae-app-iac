@@ -18,7 +18,7 @@ pipeline {
             steps{
               git credentialsId: 'CredencialesGitHub',
               url: 'https://github.com/DeveloperSenior/gcae-app-iac.git',
-              branch: 'release/*'
+              branch: 'release/Release-0.0.1'
             }
           }
           stage('Infrastructure Terraform Init/Plan') {
