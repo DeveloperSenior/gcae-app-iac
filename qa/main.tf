@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     bucket = "gcae-state-backend-terraform"
-    key    = "state/test/gcae-api/terraform.tfstate"
+    key    = "state/qa/gcae-api/terraform.tfstate"
     region = "us-east-1"
   }
 
@@ -19,11 +19,6 @@ terraform {
     }
   }
 
-}
-
-module "tf-state" {
-  source                = "../shared/modules/tf-state"
-  terraform_bucket_name = local.terraform_bucket_name
 }
 
 module "gcae-bucket-template" {
